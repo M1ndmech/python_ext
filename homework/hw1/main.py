@@ -15,4 +15,65 @@
 Программа должна подсказывать “больше” или “меньше” после каждой попытки. Для генерации случайного числа используйте код:
 from random import randintnum = randint(LOWER_LIMIT, UPPER_LIMIT)
 """
-#
+
+
+from time import *
+from random import randint
+
+def play_game():
+    guess_counter = 10
+    n = randint(1, 100)
+    print('''Попробуйте угадать число от 1 до 100. У Вас есть 10 попыток.\n'''
+          '''Введите число:''')
+    while True:
+        player_guess = is_digit(str(input()))
+        if guess_counter == 1:
+            print(f'Попытки закончились, было загадано число {n}')
+            break
+        if 1 > player_guess > 1000:
+            print(f'Введенное число вне диапазона 1-1000')
+        elif player_guess > n:
+            guess_counter -= 1
+            print(f'Загаданное число меньше {player_guess}, осталось {guess_counter} попыток')
+        elif player_guess < n:
+            guess_counter -= 1
+            print(f'Загаданное число больше {player_guess}, осталось {guess_counter} попыток')
+        elif player_guess == n:
+            print(f'Поздравляю! Вы угадали число {n}! c {8 - guess_counter}-й попытки')
+            break
+
+
+n = True
+play_game()
+while n:
+    print('Хотите сыграть ещё раз? (д/н)')
+    n = play_again(input())
+
+def is_prime():
+    num2 = int(input("Введите число: "))
+
+    if num < 0 or num > 100000:
+        return "Введено недопустимое число. Допустимы числа от 0 до 100000."
+
+    if num == 1 or num == 0:
+        return "Число не является ни простым, ни составным."
+
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return "Число составное."
+    return "Число простое."
+
+print(is_prime())
+
+def triangle_type(a, b, c):
+    # Проверка существования треугольника
+    if a + b <= c or a + c <= b or b + c <= a:
+        return "Треугольник с такими сторонами не существует"
+
+    # Определение типа треугольника
+    if a != b and b != c and a != c:
+        return "Треугольник разносторонний"
+    elif a == b and b == c:
+        return "Треугольник равносторонний"
+    else:
+        return "Треугольник равнобедренный"
