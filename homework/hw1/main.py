@@ -22,11 +22,11 @@ from random import randint
 
 def play_game():
     guess_counter = 10
-    n = randint(1, 100)
-    print('''Попробуйте угадать число от 1 до 100. У Вас есть 10 попыток.\n'''
+    n = randint(1, 1000)
+    print('''Попробуйте угадать число от 1 до 1000. У Вас есть 10 попыток.\n'''
           '''Введите число:''')
     while True:
-        player_guess = is_digit(str(input()))
+        player_guess = isdigit(str(input()))
         if guess_counter == 1:
             print(f'Попытки закончились, было загадано число {n}')
             break
@@ -39,7 +39,7 @@ def play_game():
             guess_counter -= 1
             print(f'Загаданное число больше {player_guess}, осталось {guess_counter} попыток')
         elif player_guess == n:
-            print(f'Поздравляю! Вы угадали число {n}! c {8 - guess_counter}-й попытки')
+            print(f'Поздравляю! Вы угадали число {n}! c {11 - guess_counter}-й попытки')
             break
 
 
@@ -49,6 +49,7 @@ while n:
     print('Хотите сыграть ещё раз? (д/н)')
     n = play_again(input())
 
+'''
 def is_prime():
     num2 = int(input("Введите число: "))
 
@@ -77,3 +78,5 @@ def triangle_type(a, b, c):
         return "Треугольник равносторонний"
     else:
         return "Треугольник равнобедренный"
+
+'''
