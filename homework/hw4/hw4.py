@@ -30,6 +30,22 @@ def function(**kwargs):
     return {v if v.__hash__ is not None else str(v): k for k, v in kwargs.items()}
 
 
+def wealth_check (bal, tax):
+    reduction = bal * tax
+    if bal > wealth_threshold:
+        bal -= reduction
+        print(f'Удержан налог на богатство {tax}% в размере {reduction} у.е.\n'
+              f'Остаток на Вашей карте {bal}')
+    return bal
+
+
+def mult_check(amount, multiplier):
+    if bal % multiplier != 0:
+        print(f'Ошибка! Введена сумма, не кратная {multiplier}. Операция отменена.')
+        return None
+    return amount
+
+
 menu = ("Что вы хотите?\n"
         "1. Пополнить счёт\n"
         "2. Произвести снятие\n"
@@ -39,15 +55,20 @@ menu = ("Что вы хотите?\n"
 wealth_threshold = dec(5000000)
 wealth_tax = dec(10)/dec(100)
 withdrawal_fee = dec(15)/dec(1000)
+multiplier = dec(50)
 balance = 0
-
+operation_count = 1
+op_count_mult = 3
 
 while True:
     print(menu)
     choice = int(input())
     match choice:
         case 1:
-            if balance >
+            bal_checked = wealth_check(balance, wealth_tax)
+
+
+            operation_count +=1
         case 2:
             print(2)
         case 3:
