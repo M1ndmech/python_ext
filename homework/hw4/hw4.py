@@ -52,6 +52,14 @@ def mult_check(amount, multiplier):
         return 0
     return amount
 
+def add_interest(balance, percent, op_count, multiplier):
+    if op_count % multiplier == 0:
+        interest = balance * percent
+        balance += interest
+        print(f'Начислены проценты по ставке {percent*100}. Текущий баланс карты {balance} у.е.')
+    return balance
+
+
 
 menu = ("Что вы хотите?\n"
         "1. Пополнить счёт\n"
@@ -67,7 +75,7 @@ min_wit_tax = 30
 max_wit_tax = 600
 multiplier = dec(50)
 balance = 0
-operation_count = 1
+operation_count = 0
 op_count_mult = 3
 interest = dec(3)/dec(100)
 operations_dict = dict()
@@ -76,8 +84,6 @@ while True:
     time.sleep(0.5)
     print(menu)
     choice = int(input())
-    if operation_count % op_count_mult == 0:
-        balance *= (1 + interest)
     match choice:
         case 1:
             balance = wealth_check(balance, wealth_tax)
@@ -86,6 +92,7 @@ while True:
             print(f'Завершено. Текущий баланс карты {balance} у.е.')
             operations_dict[f'{operation_count} - пополнение'] = topup_amount
             operation_count += 1
+            balance = add_interest(balance, interest, operation_count, op_count_mult)
         case 2:
             balance = wealth_check(balance, wealth_tax)
             print(f'Обратите внимание на взимание комиссии за снятие денежных средств в размере {withdrawal_fee*100}%.')
@@ -101,6 +108,7 @@ while True:
                 print(f'Снятие успешно. Текущий баланс карты {balance} у.е.')
                 operations_dict[f'{operation_count} - снятие'] = total_withdraw
                 operation_count += 1
+                balance = add_interest(balance, interest, operation_count, op_count_mult)
             else:
                 print(f'Ошибка! Недостаточно средств на карте. Доступный баланс карты {balance} у.е.')
         case 3:
